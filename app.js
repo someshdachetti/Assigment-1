@@ -30,7 +30,7 @@ start();
 const snake_to_camel_case = (databaseobject) => {
   return {
     id: databaseobject.id,
-    todo: databaseobject.taodo,
+    todo: databaseobject.todo,
     priority: databaseobject.priority,
     status: databaseobject.status,
     category: databaseobject.category,
