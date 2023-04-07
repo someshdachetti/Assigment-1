@@ -27,7 +27,16 @@ let start = async () => {
   }
 };
 start();
-
+const snake_to_camel_case = (databaseobject) => {
+  return {
+    id: databaseobject.id,
+    todo: databaseobject.taodo,
+    priority: databaseobject.priority,
+    status: databaseobject.status,
+    category: databaseobject.category,
+    dueDate: databaseobject.due_date,
+  };
+};
 //API 1
 app.get("/todos/", async (request, response) => {
   const { status } = request.query;
@@ -40,7 +49,8 @@ app.get("/todos/", async (request, response) => {
     status like '%${status}%';`;
 
   const output = await DATABASE.all(get_TODO);
-  response.send(output);
+ const camelCase = output.map(snake_to_camel_case)
+ response.send(camelCase)
 });
 
 //
@@ -130,7 +140,8 @@ app.get("/todos/:todoId/", async (request, response) => {
     SELECT * FROM todo where id = '${todoId}';`;
 
   const result = await DATABASE.get(get_by_id);
-  response.send(result);
+  const x = result.map(snake_to_camel_case)
+  response.send(x)
 });
 
 //API 3
